@@ -1,0 +1,77 @@
+---
+import type { Preload } from "@/types/Preload"
+import onest from "@fontsource-variable/onest/files/onest-latin-wght-normal.woff2"
+
+type Props = {
+  title: string
+  description: string
+  canonical?: string
+  lang?: string
+  preload?: Array<Preload>
+  image?: string
+}
+
+const {
+  title,
+  description,
+  lang = "es",
+  canonical,
+  preload,
+  image = ""
+} = Astro.props
+
+
+const determineCanonicalURL = () => {
+  if (Astro.url.host.includes("localhost")) return "http://localhost:4321"
+  return canonical || Astro.url.pathname
+}
+
+const canonicalURL = new URL(determineCanonicalURL(), Astro.site)
+---
+
+
+<title>{title}</title>
+
+<meta charset="UTF-8" />
+<meta name="description" content={description} />
+
+<link rel="preload" href={onest} as="font" type="font/woff2" crossorigin />
+
+
+{
+  preload?.map(({ href, as, type, rel = "preload", crossorigin }) => (
+    <link {rel} {href} {as} {type} {crossorigin} />
+	))
+}
+
+<link rel="stylesheet" href={canonicalURL}>
+
+<meta name="viewport" content="width=device-width" />
+<meta name="keywords" content="encrypt, decrypt, cryptography, crypto, algorithms" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@JhonRomero26_" />
+<meta name="twitter:creator" content="@JhonRomero26_" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image, Astro.url)} />
+
+<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:site_name" content="Cryptor" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_ES" />
+
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="msapplication-config" content="/browserconfig.xml" />
+
+<script is:inline src="/registerSW.js"></script>
+<link rel="manifest" href="/manifest.webmanifest" />

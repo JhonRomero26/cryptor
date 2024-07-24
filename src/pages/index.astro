@@ -1,0 +1,50 @@
+---
+import FieldsForCrypt from "@/components/FieldsForCrypt.astro";
+import Layout from "@/Layouts/Layout.astro";
+---
+
+<Layout
+  title="Cryptor"
+  description="Encrypta y descencripta datos con diferentes algoritmos"
+>
+  <FieldsForCrypt
+  textTitle="Texto que desea encriptar" >
+    <button id="encrypt" slot="actions" class="bg-blue-500 text-white px-4 py-2 w-full rounded">Encriptar</button>
+  </FieldsForCrypt>
+</Layout>
+
+
+<script>
+  const $submit = document.getElementById("encrypt") as HTMLButtonElement;
+  const $password = document.getElementById("password") as HTMLInputElement;
+  const $input = document.getElementById("input") as HTMLInputElement;
+  const $msgData = document.getElementById("message-data") as HTMLInputElement;
+  const $msgPass = document.getElementById("message-passw") as HTMLInputElement;
+  const $result = document.getElementById("result") as HTMLDivElement;
+  const $data = $result.querySelector('#data-result') as HTMLTextAreaElement
+
+  $submit.addEventListener("click", () => {
+    if (!$password.value || !$input.value) {
+      $msgPass.innerHTML = !$password.value ? "Ingresa una contraseña" : "";
+      $msgData.innerHTML = !$input.value ? "Ingresa un texto para encriptarlo" : "";
+      return
+    }
+
+    fetch("/encrypt", {
+      method: "POST",
+      body: JSON.stringify({
+        algorithm: "aes-256-cbc",
+        password: $password.value,
+        data: $input.value
+      })
+    })
+      .then(res => res.json())
+      .then(res => {
+        $result.classList.remove("h-0", "opacity-0", 'invisible')
+        $result.classList.add("opacity-100")
+
+        const { result } = res
+        $data.innerHTML = result
+      })
+  })
+</script>

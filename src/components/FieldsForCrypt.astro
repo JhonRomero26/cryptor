@@ -1,0 +1,83 @@
+---
+import { Icon } from "astro-icon/components";
+import Logo from "./Logo.astro";
+
+type Props = {
+  textTitle: string;
+}
+
+const { pathname } = Astro.url;
+const { textTitle } = Astro.props;
+---
+
+<section class="min-h-screen w-full flex items-center justify-center">
+  <div class="max-w-md w-full mx-auto flex flex-col">
+    <Logo />
+    <div class="flex justify-center w-full mb-4">
+      <a
+      class:list={[
+          "px-8 py-4 text-center hover:bg-blue-500/15 hover:border-blue-500 hover:text-blue-500 border-b-2 w-full",
+          {
+            "text-blue-500 border-b-blue-500": pathname === "/",
+          },
+        ]}
+        href="/">Encriptador</a
+        >
+        <a
+        class:list={[
+          "px-8 py-4 text-center hover:bg-blue-500/15 hover:border-blue-500 hover:text-blue-500 border-b-2 w-full",
+          {
+            "text-blue-500 border-b-blue-500": pathname === "/decryptor",
+          },
+        ]}
+        href="/decryptor">Descencriptador</a
+        >
+      </div>
+      <div id="result" class="flex flex-col gap-2 mb-8 h-0 transition-opacity invisible opacity-0">
+        <span>Resultado</span>
+        <div id="data-result" class="w-full rounded bg-blue-500/15 p-2 text-blue-500 break-words"></div>
+      </div>
+      <div class="flex flex-col gap-2 mb-8">
+        <label class="flex flex-col
+    gap-2">
+        <span class="font-semibold">{textTitle}</span>
+        <textarea
+          id="input"
+          class="rounded border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800 outline-0 p-2"
+          id="encryptor-input"
+          rows="4" />
+          <small class="min-h-6" id="message-data"></small>
+      </label>
+
+      <label class="flex flex-col gap-2">
+        <span class="font-semibold">Contraseña</span>
+        <div class="relative">
+          <input
+            id="password"
+            type="password"
+            class="rounded border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800 outline-0 p-2 w-full"
+          />
+          <button
+            id="toggle-password"
+            class="w-10 h-10 flex justify-center items-center absolute top-2/4 -translate-y-2/4 right-0"
+          >
+            <Icon class="text-2xl" name="tabler:eye" />
+          </button>
+        </div>
+        <small class="min-h-6" id="message-passw"></small>
+      </label>
+    </div>
+    <slot name="actions" />
+  </div>
+</section>
+
+<script>
+  const $togglePassword = document.getElementById(
+    "toggle-password",
+  ) as HTMLButtonElement;
+  const $password = document.getElementById("password") as HTMLInputElement;
+
+  $togglePassword.addEventListener("click", () => {
+    $password.type = $password.type === "password" ? "text" : "password";
+  });
+</script>
