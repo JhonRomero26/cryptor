@@ -17,7 +17,7 @@ export default defineConfig({
   integrations: [
     icon({
       include: {
-        "tabler": ['eye', 'eye-closed']
+        "tabler": ['eye', 'clipboard']
       }
     })
   ],

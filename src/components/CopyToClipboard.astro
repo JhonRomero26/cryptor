@@ -1,0 +1,30 @@
+---
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  tagId: string;
+}
+
+const { tagId } = Astro.props
+---
+
+<button data-copy={tagId} data-id="clipboard" class="text-inherit w-10 h-10">
+  <Icon name="tabler:clipboard" class="text-4xl" />
+</button>
+
+
+<script>
+  const $clipboards = document.querySelectorAll('[data-id="clipboard"]');
+
+  $clipboards.forEach($clipboard => {
+    const tag = $clipboard.getAttribute("data-copy") ?? "";
+    const data = document.querySelector(tag)
+    
+    $clipboard.addEventListener("click", () => {
+      const text = data?.textContent ?? "";
+      navigator.clipboard.writeText(text).then(() => {
+        console.log("Text copied to clipboard");  
+      });
+    });
+  });
+</script>

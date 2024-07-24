@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import Logo from "./Logo.astro";
+import CopyToClipboard from "./CopyToClipboard.astro";
 
 type Props = {
   textTitle: string;
@@ -35,7 +36,12 @@ const { textTitle } = Astro.props;
       </div>
       <div id="result" class="flex flex-col gap-2 mb-8 h-0 transition-opacity invisible opacity-0">
         <span>Resultado</span>
-        <div id="data-result" class="w-full rounded bg-blue-500/15 p-2 text-blue-500 break-words"></div>
+        <div class="relative">
+          <div id="data-result" class="w-full rounded bg-blue-500/15 p-2 pr-12 text-blue-500 break-words"></div>
+          <div class="absolute right-2 top-2/4 -translate-y-2/4">
+            <CopyToClipboard tagId="#data-result" />
+          </div>
+        </div>
       </div>
       <div class="flex flex-col gap-2 mb-8">
         <label class="flex flex-col
@@ -76,6 +82,7 @@ const { textTitle } = Astro.props;
     "toggle-password",
   ) as HTMLButtonElement;
   const $password = document.getElementById("password") as HTMLInputElement;
+  const $clipbtn = document.getElementById("clipbtn") as HTMLButtonElement;
 
   $togglePassword.addEventListener("click", () => {
     $password.type = $password.type === "password" ? "text" : "password";
