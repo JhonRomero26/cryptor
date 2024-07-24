@@ -1,16 +1,16 @@
 import type { ManifestOptions } from "vite-plugin-pwa"
 
 export const seoConfig = {
-  baseURL: "https://cryptor.vercel.app/",
+  baseURL: "https://cryptors.vercel.app/",
   description: "Encrypt and decrypt data with different algorithms.",
   type: "website",
   image: {
     src: "/img/icons/favicon-512x512.png",
-    alt: "Crytor",
+    alt: "Crytors",
     width: 512,
     height: 512
   },
-  siteName: "Crytor",
+  siteName: "Crytors",
   twitter: {
     card: "summary_large_image",
   }
@@ -18,8 +18,8 @@ export const seoConfig = {
 
 
 export const manifest: Partial<ManifestOptions> = {
-  name: "Crytor",
-  short_name: "Crytor",
+  name: "Crytors",
+  short_name: "Crytors",
   description: "Website for encrypt and decrypt data with different algorithms.",
   theme_color: "#d5ff00",
   background_color: "#d5ff00",

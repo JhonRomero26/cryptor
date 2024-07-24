@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://cryptor.vercel.app
+Host: https://cryptors.vercel.app
 
 # Sitemaps
-Sitemap: https://cryptor.vercel.app/sitemap-index.xml
+Sitemap: https://cryptors.vercel.app/sitemap-index.xml
